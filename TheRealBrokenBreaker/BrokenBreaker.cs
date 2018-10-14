@@ -12,33 +12,13 @@ namespace TheRealBrokenBreaker
     {
         public static void GetBrokenLinks(string uri)
         {
-            HtmlWeb web;
-            HtmlDocument dom;
-            web = new HtmlWeb();
+            
             var links = new List<string>(); 
        
-            string href;
-            dom = web.Load(uri);
-            var anchors = dom.DocumentNode.SelectNodes("//a");   
-            if (anchors == null)
-                Console.WriteLine("no anchors on the document");
-            else
-            foreach(var anchor in anchors)
-            {
-                if (anchor.Attributes["href"] != null)
-                {
-                    href = anchor.Attributes["href"].Value;
-                    if (href == "")
-                        Console.WriteLine("href empty");
-                    else if (href[0] == '/')
-                    {
-                        links.Add(uri + href.Split('/')[1]);
-                    }
-                    else{
-                        links.Add(href);
-                    }
-                }
-            }
+            var crawler = new Crawler(uri);
+            links = crawler.FindLinks();
+            
+
             Console.WriteLine($"Found {links.Count()} links on the page {uri}.");
             Console.WriteLine("Starting to test link...");
             TestLinks(links.ToArray());     

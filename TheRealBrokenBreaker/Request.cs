@@ -17,11 +17,14 @@ namespace TheRealBrokenBreaker
             {
                 using (var client = new HttpClient())
                 {
-                    var response = client.GetAsync(uri).Result;
-
-                    if (response.StatusCode.ToString() == "404")
+                    if (uri.ToUpperInvariant().Contains("HTTP"))
                     {
-                        badLinks.Add(uri);
+                        var response = client.GetAsync(uri).Result;
+
+                        if (response.StatusCode.ToString() == "404")
+                        {
+                            badLinks.Add(uri);
+                        }
                     }
                 }
             }

@@ -16,7 +16,6 @@ namespace TheRealBrokenBreaker
         {
             ScanAnchors();
             ScanSrcs();
-            ScanButtons();
             ScanActions();
             return Links;
         }
@@ -75,13 +74,30 @@ namespace TheRealBrokenBreaker
                 }
             }
         }
-        public void ScanButtons()
-        {
-
-        }
         public void ScanActions()
         {
-
+            string action;
+            var forms = Dom.DocumentNode.SelectNodes("//form");
+            if (forms != null)
+            {
+                foreach (var form in forms)
+                {
+                    if (form.Attributes["src"] != null)
+                    {
+                        action = form.Attributes["action"].Value;
+                        if (action == "")
+                            Console.WriteLine("action empty");
+                        else if (action[0] == '/')
+                        {
+                            Links.Add(Uri + action.Split('/')[1]);
+                        }
+                        else
+                        {
+                            Links.Add(action);
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -41,6 +41,10 @@ namespace TheRealBrokenBreaker
                         {
                             Links.Add(Uri + href.Split('/')[1]);
                         }
+                        else if (href[0] == ' ')
+                        {
+                            Links.Add(Uri + href);
+                        }
                         else
                         {
                             Links.Add(href);

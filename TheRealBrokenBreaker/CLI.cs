@@ -19,9 +19,11 @@ namespace TheRealBrokenBreaker
         }
         private static void WriteMenu()
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("##########################################################");
             Console.WriteLine("############  Welcome to the broken breaker  #############");
             Console.WriteLine("##########################################################");
+            Console.ResetColor();
             Console.WriteLine("##############  Choose an option to begin  ###############");
             Console.WriteLine("1 - Input URIs");
             Console.WriteLine("2 - Read inputs from file");

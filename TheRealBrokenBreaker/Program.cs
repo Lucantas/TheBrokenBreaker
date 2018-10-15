@@ -8,7 +8,6 @@ namespace TheRealBrokenBreaker
         {
             // start the program
             CLI.Run();
-            //BrokenBreaker.GetBrokenLinks(url);
             Console.ReadLine();
         }
     }

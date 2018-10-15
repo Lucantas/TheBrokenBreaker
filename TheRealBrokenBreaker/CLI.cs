@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Collections.Generic;
 
 namespace TheRealBrokenBreaker
 {
@@ -22,7 +24,7 @@ namespace TheRealBrokenBreaker
             Console.WriteLine("##########################################################");
             Console.WriteLine("##############  Choose an option to begin  ###############");
             Console.WriteLine("1 - Input URIs");
-            Console.WriteLine("2 - Read inputs from xml");
+            Console.WriteLine("2 - Read inputs from file");
             Console.WriteLine("3 - Read logs");
             Console.WriteLine("0 - Exit");
         }
@@ -58,7 +60,36 @@ namespace TheRealBrokenBreaker
         }
         public static void ReadFromFile()
         {
-            Console.WriteLine("Reading URIs from XML");
+            Console.WriteLine("Reading URIs from File");
+            // Create a empty list of string that will keep the links found in the text file
+            var URIs = new List<string>();
+
+            // // Define the directory where the program should look for the file
+
+            // open the file with name "links.txt" and read it line by line
+            try
+            {
+                using (StreamReader sr = new StreamReader(@"C:\Users\lucan\Documentos\workstation\Csharp\links.txt"))
+                {
+                    string line;
+                    // test every line to see if it contains text
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        // if the line match a url, add it to the Array
+                        URIs.Add(line);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                // Let the user know what went wrong.
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+            foreach(var uri in URIs)
+            {
+                BrokenBreaker.GetBrokenLinks(uri);
+            }
         }
         public static void ShowLogs()
         {

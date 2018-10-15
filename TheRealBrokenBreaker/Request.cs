@@ -15,9 +15,9 @@ namespace TheRealBrokenBreaker
                 {
                     if (uri.ToUpperInvariant().Contains("HTTP"))
                     {
+                        System.Console.WriteLine($"Sending GET request to {uri} ...");
                         var response = client.GetAsync(uri).Result;
-
-                        if (response.StatusCode.ToString() == "404")
+                        if (response.StatusCode.ToString() == "NotFound")
                         {
                             badLinks.Add(uri);
                         }

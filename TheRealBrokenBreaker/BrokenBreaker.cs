@@ -17,7 +17,8 @@ namespace TheRealBrokenBreaker
             Console.WriteLine($"Found {links.Count()} links on the page {uri}.");
             Console.WriteLine("Starting to test link...");
             var badLinks = TestLinks(links.ToArray());
-            WriteBrokenLinks(uri, badLinks);
+            if (badLinks.Length > 0)
+                WriteBrokenLinks(uri, badLinks);
         }
         public static string[] TestLinks(string[] links)
         {
@@ -28,9 +29,12 @@ namespace TheRealBrokenBreaker
         public static void WriteBrokenLinks(string uri, string[] badLinks)
         {
             // search for the pre-determined file to write the broken links 
-            using (StreamWriter writer = new StreamWriter(@"C:\Users\lucan\Documentos\workstation\Csharp\brokenLinks.txt"))
+            // note the append:true option set on the StreamWriter constructor, it keeps the old links on the file
+            // while inserting new lines
+            using (StreamWriter writer = new StreamWriter(@"C:\Users\lucan\Documentos\workstation\Csharp\brokenLinks.txt", append: true))
             {
-                writer.WriteLine($"bad links found on {uri}");
+                // The header of that input, it is the current date followed by the uri chosen by the user
+                writer.WriteLine($"{DateTime.Now} | Bad links found on {uri}");
                 foreach(var link in badLinks)
                 {
                     // write the link using write line to break line after writing

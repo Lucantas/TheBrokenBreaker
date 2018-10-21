@@ -14,52 +14,45 @@ namespace TheRealBrokenBreaker
         private List<string> Links = new List<string>();
         public List<string> FindLinks()
         {
-            ScanAnchors();
-            ScanSrcs();
-            ScanActions();
+            ScanAnchorTags();
+            ScanLinkTags();
+            ScanImageTags();
+            ScanFormAction();
             return Links;
         }
+
         public Crawler(string uri)
         {
             Dom = Web.Load(uri);
         }
-        // TODO : Improve the test over the links to correctly add all the
-        // hrefs to the list based on their domain specification and target
-        public void ScanAnchors()
+     
+        public void ScanAnchorTags()
         {
-            string href;
             var anchors = Dom.DocumentNode.SelectNodes("//a");
             if (anchors != null)
             {
                 foreach (var anchor in anchors)
                 {
-                    if (anchor.Attributes["href"] != null)
-                    {
-                        href = anchor.Attributes["href"].Value;
-                        if (href == "")
-                            Console.WriteLine("href empty");
-
-                        else if (href[0] == '#')
-                        {
-                            Console.WriteLine("local anchor");
-                        }
-                        else if (href[0] == '/')
-                        {
-                            Links.Add(Uri + href.Split('/')[1]);
-                        }
-                        else if (href[0] == ' ')
-                        {
-                            Links.Add(Uri + href);
-                        }
-                        else
-                        {
-                            Links.Add(href);
-                        }
-                    }
+                    TestHref(anchor);
                 }
             }
+           
         }
-        public void ScanSrcs()
+
+        public void ScanLinkTags()
+        {
+            var links = Dom.DocumentNode.SelectNodes("//link");
+            if (links != null)
+            {
+                foreach (var link in links)
+                {
+                    TestHref(link);
+                }
+            }
+
+        }
+
+        public void ScanImageTags()
         {
             string src;
             var images = Dom.DocumentNode.SelectNodes("//img");
@@ -84,7 +77,8 @@ namespace TheRealBrokenBreaker
                 }
             }
         }
-        public void ScanActions()
+
+        public void ScanFormAction()
         {
             string action;
             var forms = Dom.DocumentNode.SelectNodes("//form");
@@ -107,6 +101,36 @@ namespace TheRealBrokenBreaker
                             Links.Add(action);
                         }
                     }
+                }
+            }
+        }
+        // TODO : Improve the test over the links to correctly add all the
+        // hrefs to the list based on their domain specification and target
+        void TestHref(HtmlNode element)
+        {
+            string href;
+
+            if (element.Attributes["href"] != null)
+            {
+                href = element.Attributes["href"].Value;
+                if (href == "")
+                    Console.WriteLine("href empty");
+
+                else if (href[0] == '#')
+                {
+                    Console.WriteLine("local anchor");
+                }
+                else if (href[0] == '/')
+                {
+                    Links.Add(Uri + href.Split('/')[1]);
+                }
+                else if (href[0] == ' ')
+                {
+                    Links.Add(Uri + href);
+                }
+                else
+                {
+                    Links.Add(href);
                 }
             }
         }

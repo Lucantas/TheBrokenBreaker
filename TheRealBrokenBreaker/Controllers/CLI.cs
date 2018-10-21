@@ -7,7 +7,6 @@ namespace TheRealBrokenBreaker
 {
     class ConsoleInterface
     {
-        private static AppConfiguration config;
         public static void Run()
         {
             var option = 0;

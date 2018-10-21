@@ -17,7 +17,7 @@ namespace TheRealBrokenBreaker
         }
         public static void Quit()
         {
-
+            Environment.Exit(0);
         }
         private static void WriteMenu()
         {

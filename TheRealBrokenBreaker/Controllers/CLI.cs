@@ -47,6 +47,9 @@ namespace TheRealBrokenBreaker
                 case 3:
                     ShowLogs();
                     break;
+                case 4:
+                    DebugOption();
+                    break;
             }
             return 0;
         }
@@ -65,6 +68,13 @@ namespace TheRealBrokenBreaker
         {
             Console.WriteLine("Reading URIs from File");
             // Create a empty list of string that will keep the links found in the text file
+            foreach(var uri in LinksFileReader())
+            {
+                BrokenBreaker.GetBrokenLinks(uri);
+            }
+        }
+        public static string[] LinksFileReader()
+        {
             var URIs = new List<string>();
 
             // // Define the directory where the program should look for the file
@@ -89,14 +99,18 @@ namespace TheRealBrokenBreaker
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
             }
-            foreach(var uri in URIs)
-            {
-                BrokenBreaker.GetBrokenLinks(uri);
-            }
+            return URIs.ToArray();
         }
         public static void ShowLogs()
         {
             Console.WriteLine("Preparing to show Logs");
+        }
+        public static void DebugOption()
+        {
+            foreach (var uri in LinksFileReader())
+            {
+                Crawler.IsValidLink(uri, false);
+            }
         }
     }
 }

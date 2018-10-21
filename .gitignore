@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /TheRealBrokenBreaker/Properties/PublishProfiles/FolderProfile.pubxml
+/BrokenBreakerApi

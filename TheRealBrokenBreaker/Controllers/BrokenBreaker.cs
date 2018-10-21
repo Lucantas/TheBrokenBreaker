@@ -11,9 +11,11 @@ namespace TheRealBrokenBreaker
         public static void GetBrokenLinks(string uri)
         {
             var links = new List<string>(); 
-       
             var crawler = new Crawler(uri);
             links = crawler.FindLinks();
+
+            if (links == null)
+                return;
 
             Console.WriteLine($"Found {links.Count()} links on the page {uri}.");
             Console.WriteLine("Starting to test link...");

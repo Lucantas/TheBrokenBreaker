@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 
 
@@ -14,6 +14,11 @@ namespace TheRealBrokenBreaker
         private List<string> Links = new List<string>();
         public List<string> FindLinks()
         {
+            if (Dom == null)
+            {
+                Console.WriteLine("Could not load web page");
+                return null;
+            }
             ScanAnchorTags();
             ScanLinkTags();
             ScanImageTags();
@@ -23,7 +28,10 @@ namespace TheRealBrokenBreaker
 
         public Crawler(string uri)
         {
-            Dom = Web.Load(uri);
+            if (!IsValidLink(uri))
+                Dom = null;
+            else
+                Dom = Web.Load(uri);
         }
      
         public void ScanAnchorTags()
@@ -133,6 +141,31 @@ namespace TheRealBrokenBreaker
                     Links.Add(href);
                 }
             }
+        }
+
+        public static bool IsValidLink(string link)
+        {
+            // (https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})
+            var regex = new Regex(@"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})",
+                RegexOptions.Compiled);
+
+            if (!regex.Match(link).Success)
+                return false;
+
+            return true;
+        }
+        public static bool IsValidLink(string link, bool isLargeText)
+        {
+            // (https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})
+            var regex = new Regex(@"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})",
+                RegexOptions.Compiled);
+
+            if (!isLargeText)
+            {
+                if (!regex.Match(link).Success)
+                    return false;
+            }
+            return true;
         }
     }
 }

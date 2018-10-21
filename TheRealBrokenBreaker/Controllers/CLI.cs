@@ -72,7 +72,7 @@ namespace TheRealBrokenBreaker
             // open the file with name "links.txt" and read it line by line
             try
             {
-                using (StreamReader sr = new StreamReader($@"{AppConfiguration.LinkFile}"))
+                using (StreamReader sr = new StreamReader(AppConfiguration.LinkFile))
                 {
                     string line;
                     // test every line to see if it contains text

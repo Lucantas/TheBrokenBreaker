@@ -8,7 +8,7 @@ namespace TheRealBrokenBreaker.Models
         {
             get
             {
-                return Environment.GetEnvironmentVariable("TBB_LinkFile");
+                return $@"{Environment.GetEnvironmentVariable("TBB_LinkFile")}";
             }
             private set { }
         }
@@ -16,7 +16,7 @@ namespace TheRealBrokenBreaker.Models
         {
             get
             {
-                BrokenLinksFile = Environment.GetEnvironmentVariable("TBB_BrokenLinksFile");
+                BrokenLinksFile = $@"{Environment.GetEnvironmentVariable("TBB_BrokenLinksFile")}";
                 return BrokenLinksFile;
             }
             private set { }
@@ -25,7 +25,7 @@ namespace TheRealBrokenBreaker.Models
         {
             get
             {
-                LogFile = Environment.GetEnvironmentVariable("TBB_LogFile");
+                LogFile = $@"{Environment.GetEnvironmentVariable("TBB_LogFile")}";
                 return LogFile;
             }
             private set  { }

@@ -3,9 +3,9 @@ using System.IO;
 using System.Collections.Generic;
 using TheRealBrokenBreaker.Models;
 
-namespace TheRealBrokenBreaker
+namespace TheRealBrokenBreaker.Controllers
 {
-    class ConsoleInterface
+    public class ConsoleInterface
     {
         public static void Run()
         {

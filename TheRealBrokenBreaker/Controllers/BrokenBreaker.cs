@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using TheRealBrokenBreaker.Models;
 
-namespace TheRealBrokenBreaker
+namespace TheRealBrokenBreaker.Controllers
 {
-    class BrokenBreaker
+    public class BrokenBreaker
     {
         public static void GetBrokenLinks(string uri)
         {

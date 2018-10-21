@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 
 
-namespace TheRealBrokenBreaker
+namespace TheRealBrokenBreaker.Controllers
 {
-    class Crawler
+    public class Crawler
     {
         public string Uri { get; set; }
         public HtmlDocument Dom { get; }

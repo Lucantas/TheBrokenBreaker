@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace TheRealBrokenBreaker
+namespace TheRealBrokenBreaker.Controllers
 {
     class Request
     {

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using TheRealBrokenBreaker.Models;
 
 namespace TheRealBrokenBreaker
 {
-    class CLI
+    class ConsoleInterface
     {
+        private static AppConfiguration config;
         public static void Run()
         {
             var option = 0;
@@ -71,7 +73,7 @@ namespace TheRealBrokenBreaker
             // open the file with name "links.txt" and read it line by line
             try
             {
-                using (StreamReader sr = new StreamReader(@"C:\Users\lucan\Documentos\workstation\Csharp\links.txt"))
+                using (StreamReader sr = new StreamReader($@"{AppConfiguration.LinkFile}"))
                 {
                     string line;
                     // test every line to see if it contains text

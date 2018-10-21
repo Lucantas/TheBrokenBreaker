@@ -7,7 +7,7 @@ namespace TheRealBrokenBreaker
         static void Main(string[] args)
         {
             // start the program
-            CLI.Run();
+            ConsoleInterface.Run();
             Console.ReadLine();
         }
     }

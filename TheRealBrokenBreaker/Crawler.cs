@@ -23,7 +23,8 @@ namespace TheRealBrokenBreaker
         {
             Dom = Web.Load(uri);
         }
-       
+        // TODO : Improve the test over the links to correctly add all the
+        // hrefs to the list based on their domain specification and target
         public void ScanAnchors()
         {
             string href;
@@ -37,6 +38,11 @@ namespace TheRealBrokenBreaker
                         href = anchor.Attributes["href"].Value;
                         if (href == "")
                             Console.WriteLine("href empty");
+
+                        else if (href[0] == '#')
+                        {
+                            Console.WriteLine("local anchor");
+                        }
                         else if (href[0] == '/')
                         {
                             Links.Add(Uri + href.Split('/')[1]);
@@ -91,6 +97,7 @@ namespace TheRealBrokenBreaker
                         action = form.Attributes["action"].Value;
                         if (action == "")
                             Console.WriteLine("action empty");
+
                         else if (action[0] == '/')
                         {
                             Links.Add(Uri + action.Split('/')[1]);
